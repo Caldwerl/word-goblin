@@ -1,0 +1,47 @@
+.options, .dictionary, .new-input {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: space-around;
+    align-items: baseline;
+}
+
+.options span, .dictionary span, .new-input span {
+    width: 50%;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+button {
+    border-radius: .25rem;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 5px;
+    padding: 5px;
+}
+
+.remove-button {
+    background-color: #DC3545;
+    border-color: #DC3545;
+}
+
+.add-button {
+    background-color: #28A745;
+    border-color: #28A745;
+}
+
+.undo-button {
+    background-color: #6C757D;
+    border-color: #6C757D;
+}
+
+.save-button {
+    background-color: #007BFF;
+    border-color: #007BFF;
+}

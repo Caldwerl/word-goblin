@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "Word Goblin",
+    "version": "1.0",
+
+    "description": "Swaps out words in your posts or comments with a dictionary of your choice to assist in language learning.",
+
+    "icons": {
+        "48": "icons/word-goblin-48.png",
+        "96": "icons/word-goblin-96.png"
+    },
+
+    "permissions": [
+        "storage"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": [
+                "https://forums.somethingawful.com/showthread*",
+                "https://www.reddit.com/*/comments/*"
+            ],
+            "js": ["word-goblin.js"]
+        }
+    ],
+
+    "options_page": "options.html"
+  }

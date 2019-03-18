@@ -32,13 +32,10 @@
         ]
     },
     "dependencies": {
-        "amplitude-js": "^4.6.0-beta.2",
-        "axios": "^0.16.2",
         "dompurify": "^1.0.9",
         "firebase": "^4.5.2",
         "prop-types": "^15.5.10",
         "react": "16.0.0",
-        "react-cookie": "^2.1.1",
         "react-dom": "16.0.0",
         "react-helmet": "^5.2.0",
         "react-router-dom": "^4.2.2"

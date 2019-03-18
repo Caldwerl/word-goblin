@@ -1,0 +1,46 @@
+@import "./common/_common.scss";
+@import "./common/_mixins.scss";
+
+html {
+    height: 100%;
+}
+
+body, .App {
+    min-height: 100vh;
+}
+
+body, html {
+    background-color: $ebOffWhite;
+    margin: 0px;
+    @include centerHorizontal();
+}
+
+b {
+    font-weight: bold !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, p, a, div {
+    word-break: keep-all;
+}
+
+// Remove dotted line for Firefox browser
+:focus {
+    outline:none;
+}
+
+::-moz-focus-inner {
+    border:0;
+}
+
+.App {
+    main {
+        >div {
+            max-width: $breakpointTablet;
+            @include centerHorizontal();
+        }
+    }
+}

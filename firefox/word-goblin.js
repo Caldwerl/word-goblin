@@ -1,14 +1,21 @@
 (function main() {
     let dictionary = [];
 
-    let classType = null;
+    let selector = null;
+    let selectorType = null;
 
     if (window.location.origin.includes("somethingawful")) {
-        classType = "postbody";
+        selector = "postbody";
+        selectorType = "class";
     } else if (window.location.origin.includes("reddit")) {
-        classType = "Comment";
+        selector = "Comment";
+        selectorType = "class";
     } else if (window.location.origin.includes("ycombinator")) {
-        classType = "commtext";
+        selector = "commtext";
+        selectorType = "class";
+    } else if (window.location.origin.includes("nytimes")) {
+        selector = "article";
+        selectorType = "tag";
     }
 
     function walkTheDOM(node, searchText, replacementText, func) {
@@ -40,7 +47,18 @@
             return;
         }
 
-        const targetNodes = document.getElementsByClassName(classType) || [];
+        let targetNodes = [];
+
+        switch (selectorType) {
+        case "class":
+            targetNodes = document.getElementsByClassName(selector);
+            break;
+        case "tag":
+            targetNodes = document.getElementsByTagName(selector);
+            break;
+        default:
+            break;
+        }
 
         for (let index = 0; index < targetNodes.length; index += 1) {
             walkTheDOM(targetNodes[index], searchText, replacementText, replaceText);

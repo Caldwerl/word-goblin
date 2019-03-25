@@ -15,7 +15,8 @@
             "matches": [
                 "*://forums.somethingawful.com/showthread*",
                 "*://www.reddit.com/*/comments/*",
-                "*://news.ycombinator.com/item*"
+                "*://news.ycombinator.com/item*",
+                "*://www.nytimes.com/*"
             ],
             "js": [
                 "word-goblin.js"

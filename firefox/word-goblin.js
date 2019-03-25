@@ -1,44 +1,65 @@
-let colorSetting = "";
-let boldSetting = "";
-let dictionary = [];
+(function main() {
+    let dictionary = [];
 
-const isSA = window.location.origin.includes("somethingawful");
-const storageItems = browser.storage.local.get();
+    let classType = null;
 
-storageItems.then((res) => {
-    if (res.colorFlag) {
-        colorSetting = `color: ${res.color};`;
+    if (window.location.origin.includes("somethingawful")) {
+        classType = "postbody";
+    } else if (window.location.origin.includes("reddit")) {
+        classType = "Comment";
+    } else if (window.location.origin.includes("ycombinator")) {
+        classType = "commtext";
     }
 
-    if (res.boldFlag) {
-        boldSetting = "font-weight: bolder;";
-    }
+    function walkTheDOM(node, searchText, replacementText, func) {
+        func(node, searchText, replacementText);
 
-    if (res.dictionary) {
-        dictionary = JSON.parse(res.dictionary);
-    }
+        node = node.firstChild;
 
-    dictionary.forEach((item) => {
-        findAndReplace(item.word, item.translation);
-    });
-});
-
-function findAndReplace(searchText, replacement) {
-    if (!searchText || typeof replacement === "undefined") {
-        return;
-    }
-
-    var regex = typeof searchText === "string" ? new RegExp(`\\b${searchText}\\b`, "ig") : searchText;
-    // If location is SomethingAwful select by postbody, otherwise location is reddit select by p tags
-    var childNodes = isSA ? document.getElementsByClassName("postbody") : document.getElementsByTagName("p");
-
-    for (let childNode of childNodes) {
-        const nodeText = childNode.innerHTML;
-
-        if (regex.test(nodeText)) {
-            const matchedString = nodeText.match(regex);
-
-            childNode.innerHTML = nodeText.replace(regex, `<span style="${colorSetting} ${boldSetting}"><abbr title="${matchedString}">${replacement}</abbr></span>`);
+        while (node) {
+            walkTheDOM(node, searchText, replacementText, func);
+            node = node.nextSibling;
         }
     }
-}
+
+    function replaceText(node, searchText, replacementText) {
+        if (node.nodeType === 3) { // Is it a Text node?
+            const text = node.data.trim();
+            if (text.length > 0) { // Does it have non white-space text content?
+                const regex = typeof searchText === "string" ? new RegExp(`\\b${searchText}\\b`, "ig") : searchText;
+
+                if (regex.test(text)) {
+                    node.data = text.replace(regex, replacementText);
+                }
+            }
+        }
+    }
+
+    function findAndReplace(searchText, replacementText) {
+        if (!searchText || typeof replacementText === "undefined") {
+            return;
+        }
+
+        const targetNodes = document.getElementsByClassName(classType) || [];
+
+        for (let index = 0; index < targetNodes.length; index += 1) {
+            walkTheDOM(targetNodes[index], searchText, replacementText, replaceText);
+        }
+    }
+
+    function getStorageData() {
+        const storageItems = browser.storage.local.get();
+
+        storageItems.then((res) => {
+            if (res.dictionary) {
+                dictionary = JSON.parse(res.dictionary);
+            }
+
+            dictionary.forEach((item) => {
+                findAndReplace(item.word, item.translation);
+            });
+        });
+    }
+
+    getStorageData();
+}());

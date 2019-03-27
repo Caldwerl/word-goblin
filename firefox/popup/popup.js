@@ -4,7 +4,7 @@ function listenForClicks() {
             console.error("Word-Goblin Error:", error);
         }
 
-        if (e.target.classList.contains("dictionary")) {
+        if (e.target.classList.contains("options")) {
             const opening = browser.runtime.openOptionsPage();
 
             opening

@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Word Goblin",
     "version": "1.0",
-    "description": "Swaps out words in your posts or comments with a dictionary of your choice to assist in language learning.",
+    "description": "Swaps out words in your browser with a dictionary of your choice to assist in language learning.",
     "homepage_url": "https://www.word-goblin.com",
     "icons": {
         "48": "icons/word-goblin-48.png",

@@ -2,27 +2,34 @@
     "manifest_version": 2,
     "name": "Word Goblin",
     "version": "1.0",
-
-    "description": "Swaps out words in your posts or comments with a dictionary of your choice to assist in language learning.",
-
+    "description": "Swaps out words in your browser with a dictionary of your choice to assist in language learning.",
+    "homepage_url": "https://www.word-goblin.com",
     "icons": {
         "48": "icons/word-goblin-48.png",
         "96": "icons/word-goblin-96.png"
     },
-
     "permissions": [
         "storage"
     ],
-
     "content_scripts": [
         {
             "matches": [
                 "*://forums.somethingawful.com/showthread*",
-                "*://www.reddit.com/*/comments*"
+                "*://www.reddit.com/*/comments/*",
+                "*://news.ycombinator.com/item*",
+                "*://www.nytimes.com/*"
             ],
-            "js": ["word-goblin.js"]
+            "js": [
+                "word-goblin.js"
+            ]
         }
     ],
-
-    "options_page": "options.html"
+    "options_page": "options/options.html",
+    "browser_action": {
+        "default_icon": {
+            "48": "icons/word-goblin-48.png"
+        },
+        "default_title": "Word Goblin",
+        "default_popup": "popup/popup.html"
+    }
   }

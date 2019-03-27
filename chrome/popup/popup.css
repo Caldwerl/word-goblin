@@ -1,0 +1,33 @@
+.hidden {
+    display: none;
+}
+
+body {
+    background-color: #F5F6F7;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    min-width: 200px;
+}
+
+h2 {
+    font-family: inherit;
+    font-weight: normal;
+    text-align: center;
+}
+
+button {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+span {
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+}

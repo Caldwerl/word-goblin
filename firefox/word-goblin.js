@@ -21,11 +21,11 @@
     function walkTheDOM(node, searchText, replacementText, func) {
         func(node, searchText, replacementText);
 
-        node = node.firstChild;
+        node = node.firstChild; // eslint-disable-line no-param-reassign
 
         while (node) {
             walkTheDOM(node, searchText, replacementText, func);
-            node = node.nextSibling;
+            node = node.nextSibling; // eslint-disable-line no-param-reassign
         }
     }
 

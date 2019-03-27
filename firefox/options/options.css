@@ -11,6 +11,10 @@
     width: 50%;
 }
 
+h2, h3, button, label {
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
 label {
     font-size: 14px;
     font-weight: bold;
@@ -20,7 +24,8 @@ button {
     border-radius: .25rem;
     color: #FFF;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 14px;
+    font-weight: bold;
     line-height: 1.5;
     margin: 5px;
     padding: 5px;

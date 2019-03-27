@@ -9,6 +9,11 @@
     "parserOptions": {
         "sourceType": "module"
     },
+    "globals": {
+        "window": true,
+        "browser": true,
+        "chrome": true
+    },
     "rules": {
         "indent": [
             "error",
@@ -34,7 +39,9 @@
                 ]
             }
         ],
-        "react/forbid-prop-types": [0],
+        "react/forbid-prop-types": [
+            0
+        ],
         "linebreak-style": [
             "error",
             "unix"
@@ -52,7 +59,9 @@
         ],
         "no-param-reassign": [
             "error",
-            { "props": false }
+            {
+                "props": false
+            }
         ],
         "import/no-extraneous-dependencies": [
             "error",

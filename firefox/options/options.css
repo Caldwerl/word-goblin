@@ -1,3 +1,16 @@
+body {
+    background-color: #F5F6F7;
+}
+
+h2, h3, button, label {
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .options, .dictionary, .new-input {
     display: flex;
     flex-direction: row;
@@ -9,15 +22,6 @@
 
 .options span, .dictionary span, .new-input span {
     width: 50%;
-}
-
-h2, h3, button, label {
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
-}
-
-label {
-    font-size: 14px;
-    font-weight: bold;
 }
 
 button {

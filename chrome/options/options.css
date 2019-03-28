@@ -1,3 +1,7 @@
+body {
+    background-color: #F5F6F7;
+}
+
 main {
     max-width: 640px;
     margin-left: auto;

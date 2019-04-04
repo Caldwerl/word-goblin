@@ -27,53 +27,29 @@ function DictionaryContainer({ authUser }) {
     }
 
     function handleItemChange(index, type, value) {
-        // const { dictionaryItems } = this.state;
-
         const updatedDictionaryItems = dictionaryItems.slice(0);
 
         updatedDictionaryItems[index][type] = value;
 
         setDictionaryItems(updatedDictionaryItems);
-        // return this.setState({
-        //     dictionaryItems: updatedDictionaryItems,
-        // });
     }
 
     function addDictionaryItem() {
-        // const { dictionaryItems, newItemTranslation, newItemWord } = this.state;
-
         setNewItemTranslation("");
         setNewItemWord("");
         setDictionaryItems(dictionaryItems.concat([{
             word: newItemWord.trim(),
             translation: newItemTranslation.trim(),
         }]));
-
-        // return this.setState({
-        //     dictionaryItems: dictionaryItems.concat([{
-        //         word: newItemWord.trim(),
-        //         translation: newItemTranslation.trim(),
-        //     }]),
-        //     newItemWord: "",
-        //     newItemTranslation: "",
-        // });
     }
 
     function removeDictionaryItem(removalIndex) {
-        // const { dictionaryItems } = this.state;
         const newDictionaryItemsArray = dictionaryItems.slice(0);
 
         newDictionaryItemsArray.splice(removalIndex, 1);
 
         setDictionaryItems(newDictionaryItemsArray.slice(0));
-        // return this.setState({
-        //     dictionaryItems: newDictionaryItemsArray.slice(0),
-        // });
     }
-
-    // render() {
-    //     const { dictionaryItems, hasExtension, newItemTranslation, newItemWord } = this.state;
-    //     const { authUser } = this.props;
 
     if (!hasExtension) {
         return (
@@ -182,7 +158,6 @@ function DictionaryContainer({ authUser }) {
                     <input
                         id="newItemWord"
                         name="new-word"
-                        // onChange={handleInputChange}
                         onChange={event => setNewItemWord(event.target.value)}
                         type="text"
                         value={newItemWord}
@@ -193,7 +168,6 @@ function DictionaryContainer({ authUser }) {
                     <input
                         id="newItemTranslation"
                         name="new-translation"
-                        // onChange={handleInputChange}
                         onChange={event => setNewItemTranslation(event.target.value)}
                         type="text"
                         value={newItemTranslation}
@@ -218,7 +192,6 @@ function DictionaryContainer({ authUser }) {
             </div>
         </section>
     );
-    // }
 }
 
 DictionaryContainer.propTypes = {

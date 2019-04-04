@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 import { Auth } from "./common/firebase";
 
@@ -7,35 +7,29 @@ import LandingContainer from "./Main/Landing/LandingContainer";
 
 import "./App.scss";
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
+export const AuthUserContext = createContext(null);
 
-        this.state = {
-            authUser: null,
-        };
-    }
+function App() {
+    const [authUser, setAuthUser] = useState(null);
 
-    componentDidMount() {
+    useEffect(() => {
         // Maintain auth state if user has already signed in, on refresh or return visits
-        Auth.onAuthStateChanged((authUser) => {
-            this.setState({
-                authUser,
-            });
-        });
-    }
+        const unsubscribe = Auth.onAuthStateChanged(setAuthUser);
 
-    render() {
-        const { authUser } = this.state;
+        return function cleanUp() {
+            unsubscribe();
+        };
+    }, []);
 
-        return (
-            <div className="App">
-                <MainHeader authUser={authUser} />
+    return (
+        <div className="App">
+            <AuthUserContext.Provider value={authUser}>
+                <MainHeader />
 
-                <LandingContainer authUser={authUser} />
-            </div>
-        );
-    }
+                <LandingContainer />
+            </AuthUserContext.Provider>
+        </div>
+    );
 }
 
 export default App;

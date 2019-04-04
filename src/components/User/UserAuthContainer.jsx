@@ -1,11 +1,13 @@
-import React from "react";
-import { object } from "prop-types";
+import React, { useContext } from "react";
 
-import { authProviders, Auth } from "../common/firebase";
+import { AuthUserContext } from "../App";
+import { Auth, authProviders } from "../common/firebase";
 
 import "./UserAuthContainer.scss";
 
-function UserAuthContainer({ authUser }) {
+function UserAuthContainer() {
+    const authUser = useContext(AuthUserContext);
+
     function handleSignInSuccess() {
         console.log("Sign In Successful");
     }
@@ -51,13 +53,5 @@ function UserAuthContainer({ authUser }) {
         </section>
     );
 }
-
-UserAuthContainer.propTypes = {
-    authUser: object,
-};
-
-UserAuthContainer.defaultProps = {
-    authUser: null,
-};
 
 export default UserAuthContainer;

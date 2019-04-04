@@ -15,7 +15,14 @@ function saveVaultItem(userID, currentVaultSelectionIndex, currentDictionaryTitl
     });
 }
 
+function saveSuggestion(suggestionObject) {
+    const targetRef = DB.ref("suggestions").push();
+
+    return targetRef.set(suggestionObject);
+}
+
 export default {
     getVault,
     saveVaultItem,
+    saveSuggestion,
 };

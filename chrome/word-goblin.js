@@ -3,8 +3,12 @@
 
     let selector = null;
     let selectorType = null;
+    let isHomepage = false;
 
-    if (window.location.origin.includes("somethingawful")) {
+    if (window.location.origin.includes("localhost")) {
+    // if (window.location.origin.includes("word-goblin")) {
+        isHomepage = true;
+    } else if (window.location.origin.includes("somethingawful")) {
         selector = "postbody";
         selectorType = "class";
     } else if (window.location.origin.includes("reddit")) {
@@ -65,15 +69,37 @@
         }
     }
 
+    function saveStorageData() {
+        const dictionarySourceEl = document.getElementById("dictionaryItems");
+
+        chrome.storage.local.set({
+            dictionary: dictionarySourceEl.value,
+        });
+    }
+
+    function homepageInterface(dictionaryString) {
+        const dictionarySourceEl = document.getElementById("dictionaryItems");
+        const saveSettingsEl = document.getElementById("save-settings");
+
+        dictionarySourceEl.value = dictionaryString;
+        dictionarySourceEl.dispatchEvent(new Event("change", { bubbles: true }));
+
+        saveSettingsEl.addEventListener("click", saveStorageData);
+    }
+
     function getStorageData() {
         chrome.storage.local.get((res) => {
-            if (res.dictionary) {
-                dictionary = JSON.parse(res.dictionary);
-            }
+            if (isHomepage) {
+                homepageInterface(res.dictionary);
+            } else {
+                if (res.dictionary) {
+                    dictionary = JSON.parse(res.dictionary);
+                }
 
-            dictionary.forEach((item) => {
-                findAndReplace(item.word, item.translation);
-            });
+                dictionary.forEach((item) => {
+                    findAndReplace(item.word, item.translation);
+                });
+            }
         });
     }
 

@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "local": "jest && webpack-dev-server --open",
+        "local": "webpack-dev-server --open",
         "local-prod": "jest && webpack --mode=production && webpack-dev-server --open",
         "local-testless": "webpack --mode=development && webpack-dev-server --open",
         "build": "jest && webpack --mode=production",
@@ -36,9 +36,7 @@
         "firebase": "^4.5.2",
         "prop-types": "^15.5.10",
         "react": "16.0.0",
-        "react-dom": "16.0.0",
-        "react-helmet": "^5.2.0",
-        "react-router-dom": "^4.2.2"
+        "react-dom": "16.0.0"
     },
     "devDependencies": {
         "babel": "^6.23.0",

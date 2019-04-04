@@ -3,8 +3,12 @@
 
     let selector = null;
     let selectorType = null;
+    let isHomepage = false;
 
-    if (window.location.origin.includes("somethingawful")) {
+    if (window.location.origin.includes("localhost")) {
+    // if (window.location.origin.includes("word-goblin")) {
+        isHomepage = true;
+    } else if (window.location.origin.includes("somethingawful")) {
         selector = "postbody";
         selectorType = "class";
     } else if (window.location.origin.includes("reddit")) {
@@ -65,18 +69,38 @@
         }
     }
 
-    function getStorageData() {
-        const storageItems = browser.storage.local.get();
+    function saveStorageData() {
+        const dictionarySourceEl = document.getElementById("dictionaryItems");
 
-        storageItems.then((res) => {
-            if (res.dictionary) {
-                dictionary = JSON.parse(res.dictionary);
+        browser.storage.local.set({
+            dictionary: dictionarySourceEl.value,
+        });
+    }
+
+    function homepageInterface(dictionaryString) {
+        const dictionarySourceEl = document.getElementById("dictionaryItems");
+        const saveSettingsEl = document.getElementById("save-settings");
+
+        dictionarySourceEl.value = dictionaryString;
+        dictionarySourceEl.dispatchEvent(new Event("change", { bubbles: true }));
+
+        saveSettingsEl.addEventListener("click", saveStorageData);
+    }
+
+    async function getStorageData() {
+        const storageItems = await browser.storage.local.get();
+
+        if (isHomepage) {
+            homepageInterface(storageItems.dictionary);
+        } else {
+            if (storageItems.dictionary) {
+                dictionary = JSON.parse(storageItems.dictionary);
             }
 
             dictionary.forEach((item) => {
                 findAndReplace(item.word, item.translation);
             });
-        });
+        }
     }
 
     getStorageData();

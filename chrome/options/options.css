@@ -1,3 +1,14 @@
+body {
+    background-color: #F5F6F7;
+}
+
+main {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
 .options, .dictionary, .new-input {
     display: flex;
     flex-direction: row;
@@ -11,22 +22,21 @@
     width: 50%;
 }
 
+h1, h2, h3, button, label, p, a {
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
 label {
     font-size: 14px;
     font-weight: bold;
-}
-
-main {
-    max-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 button {
     border-radius: .25rem;
     color: #FFF;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 14px;
+    font-weight: bold;
     line-height: 1.5;
     margin: 5px;
     padding: 5px;

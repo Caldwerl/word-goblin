@@ -1,0 +1,44 @@
+// Returns the darkened color based on input percentage
+// darken([red | #FF0000 | rgb(255, 0 ,0)], 25%);
+@function darken($color, $percentage) {
+    @return mix(black, $color, $percentage);
+}
+
+// Returns the lightened color based on input percentage
+// lighten([red | #FF0000 | rgb(255, 0 ,0)], 25%);
+@function lighten($color, $percentage) {
+    @return mix(white, $color, $percentage);
+}
+
+@mixin raisedButton($shadowSize, $raisedShadowSize, $color) {
+    box-shadow: 0 1px $shadowSize $color;
+
+    &:hover {
+        box-shadow: 0 1px $raisedShadowSize $color;
+    }
+}
+
+@mixin transition($property, $duration, $easing) {
+    -webkit-transition: $property $duration $easing;
+    transition: $property $duration $easing;
+}
+
+@mixin scale($ratio) {
+    transform: scale($ratio, $ratio);
+    -webkit-transform: scale($ratio, $ratio);
+    -moz-transform: scale($ratio, $ratio);
+}
+
+@mixin centerHorizontal() {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
+@mixin centerVertical() {
+    margin: {
+        bottom: auto;
+        top: auto;
+    }
+}

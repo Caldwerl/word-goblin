@@ -1,43 +1,107 @@
-let colorSetting = "";
-let boldSetting = "";
-let dictionary = [];
+(function main() {
+    let dictionary = [];
 
-const isSA = window.location.origin.includes("somethingawful");
+    let selector = null;
+    let selectorType = null;
+    let isHomepage = false;
 
-chrome.storage.local.get((res) => {
-    if (res.colorFlag) {
-        colorSetting = `color: ${res.color};`;
+    if (window.location.origin.includes("localhost")) {
+    // if (window.location.origin.includes("word-goblin")) {
+        isHomepage = true;
+    } else if (window.location.origin.includes("somethingawful")) {
+        selector = "postbody";
+        selectorType = "class";
+    } else if (window.location.origin.includes("reddit")) {
+        selector = "Comment";
+        selectorType = "class";
+    } else if (window.location.origin.includes("ycombinator")) {
+        selector = "commtext";
+        selectorType = "class";
+    } else if (window.location.origin.includes("nytimes")) {
+        selector = "article";
+        selectorType = "tag";
     }
 
-    if (res.boldFlag) {
-        boldSetting = "font-weight: bolder;";
-    }
+    function walkTheDOM(node, searchText, replacementText, func) {
+        func(node, searchText, replacementText);
 
-    if (res.dictionary) {
-        dictionary = JSON.parse(res.dictionary);
-    }
+        node = node.firstChild; // eslint-disable-line no-param-reassign
 
-    dictionary.forEach((item) => {
-        findAndReplace(item.word, item.translation);
-    });
-});
-
-function findAndReplace(searchText, replacement) {
-    if (!searchText || typeof replacement === "undefined") {
-        return;
-    }
-
-    var regex = typeof searchText === "string" ? new RegExp(`\\b${searchText}\\b`, "ig") : searchText;
-    // If location is SomethingAwful select by postbody, otherwise location is reddit select by p tags
-    var childNodes = isSA ? document.getElementsByClassName("postbody") : document.getElementsByTagName("p");
-
-    for (let childNode of childNodes) {
-        const nodeText = childNode.innerHTML;
-
-        if (regex.test(nodeText)) {
-            const matchedString = nodeText.match(regex);
-
-            childNode.innerHTML = nodeText.replace(regex, `<span style="${colorSetting} ${boldSetting}"><abbr title="${matchedString}">${replacement}</abbr></span>`);
+        while (node) {
+            walkTheDOM(node, searchText, replacementText, func);
+            node = node.nextSibling; // eslint-disable-line no-param-reassign
         }
     }
-}
+
+    function replaceText(node, searchText, replacementText) {
+        if (node.nodeType === 3) { // Is it a Text node?
+            const text = node.data.trim();
+            if (text.length > 0) { // Does it have non white-space text content?
+                const regex = typeof searchText === "string" ? new RegExp(`\\b${searchText}\\b`, "ig") : searchText;
+
+                if (regex.test(text)) {
+                    node.data = text.replace(regex, replacementText);
+                }
+            }
+        }
+    }
+
+    function findAndReplace(searchText, replacementText) {
+        if (!searchText || typeof replacementText === "undefined") {
+            return;
+        }
+
+        let targetNodes = [];
+
+        switch (selectorType) {
+        case "class":
+            targetNodes = document.getElementsByClassName(selector);
+            break;
+        case "tag":
+            targetNodes = document.getElementsByTagName(selector);
+            break;
+        default:
+            break;
+        }
+
+        for (let index = 0; index < targetNodes.length; index += 1) {
+            walkTheDOM(targetNodes[index], searchText, replacementText, replaceText);
+        }
+    }
+
+    function saveStorageData() {
+        const dictionarySourceEl = document.getElementById("dictionaryItems");
+
+        chrome.storage.local.set({
+            dictionary: dictionarySourceEl.value,
+        });
+    }
+
+    function homepageInterface(dictionaryString) {
+        const dictionarySourceEl = document.getElementById("dictionaryItems");
+        const saveSettingsEl = document.getElementById("save-settings");
+
+        dictionarySourceEl.value = dictionaryString;
+        dictionarySourceEl.dispatchEvent(new Event("change", { bubbles: true }));
+
+        saveSettingsEl.addEventListener("click", saveStorageData);
+    }
+
+    function getStorageData() {
+        chrome.storage.local.get((res) => {
+            if (isHomepage) {
+                homepageInterface(res.dictionary);
+            } else {
+                if (res.dictionary) {
+                    dictionary = JSON.parse(res.dictionary);
+                }
+
+                dictionary.forEach((item) => {
+                    findAndReplace(item.word, item.translation);
+                });
+            }
+        });
+    }
+
+    getStorageData();
+}());

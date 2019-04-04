@@ -1,0 +1,83 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
+    },
+    "root": true,
+    "extends": "airbnb",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "globals": {
+        "window": true,
+        "browser": true,
+        "chrome": true
+    },
+    "plugins": [
+        "react-hooks"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/jsx-indent": [
+            2,
+            4
+        ],
+        "react/no-danger": [
+            0
+        ],
+        "react/jsx-indent-props": [
+            2,
+            4
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/forbid-prop-types": [
+            0
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "max-len": [
+            0
+        ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "**/*.test.jsx",
+                    "**/setupTests.jsx",
+                    "**/mountWrap.jsx",
+                    "webpack.config.js"
+                ]
+            }
+        ]
+    }
+}

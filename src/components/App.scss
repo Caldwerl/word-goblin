@@ -1,0 +1,76 @@
+@import "./common/_common.scss";
+@import "./common/_mixins.scss";
+
+* {
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    word-break: keep-all;
+}
+
+html {
+    height: 100%;
+}
+
+body, html {
+    background-color: $backgroundWhite;
+    margin: 0px;
+}
+
+b {
+    font-weight: bold !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+// Remove dotted line for Firefox browser
+:focus {
+    outline: none;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
+.App {
+    min-height: 100vh;
+
+    main {
+        max-width: $breakpointTablet;
+        min-height: 100vh;
+        @include centerHorizontal();
+    }
+}
+
+button {
+    background-color: #6C757D;
+    border-color: #6C757D;
+    border-radius: .25rem;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 5px;
+    padding: 5px;
+}
+
+.remove-button {
+    background-color: #DC3545;
+    border-color: #DC3545;
+}
+
+.add-button {
+    background-color: #28A745;
+    border-color: #28A745;
+}
+
+.undo-button {
+    background-color: #6C757D;
+    border-color: #6C757D;
+}
+
+.save-button {
+    background-color: #007BFF;
+    border-color: #007BFF;
+}

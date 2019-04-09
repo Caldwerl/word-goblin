@@ -22,14 +22,14 @@ function SuggestionContainer() {
                 setSuggestionString("");
             })
             .catch(() => (
-                setResponseString("There was an error. Try again later.")
+                setResponseString("There was an error! Please try again later.")
             ));
     }
 
     return (
         <section className="suggestion-container">
             <h2>Suggestion Box</h2>
-            <p>Have a favorite website you want Word-Goblin to support?</p>
+            <p>Have a favorite website you want Word Goblin to support?</p>
             <p>An improvement or issue? Let us know here!</p>
             <textarea
                 onChange={event => setSuggestionString(event.target.value)}

@@ -13,7 +13,7 @@ function NewInputComponent({ addDictionaryItem }) {
             <p>Capitalization is ignored.</p>
 
             <table className="dictionary-items">
-                <caption>Inputs for new translations</caption>
+                <caption style={{ display: "none" }}>Inputs for new translations</caption>
                 <thead>
                     <tr>
                         <th>Word(s)</th>

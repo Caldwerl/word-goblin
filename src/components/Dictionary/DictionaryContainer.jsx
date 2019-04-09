@@ -3,13 +3,12 @@ import React, { useContext, useState } from "react";
 import { AuthUserContext } from "../App";
 import DictionaryVaultContainer from "./DictionaryVaultContainer";
 import NewInputComponent from "./NewInputComponent";
-import NotInstalled from "./NotInstalledComponent";
 
 import "./DictionaryContainer.scss";
 
 function DictionaryContainer() {
     const [dictionaryItems, setDictionaryItems] = useState([]);
-    const [hasExtension, setHasExtension] = useState(false);
+    const [haveExtension, setHaveExtension] = useState(false);
     const authUser = useContext(AuthUserContext);
 
     function loadDictionaryList(newDictionary) {
@@ -23,8 +22,6 @@ function DictionaryContainer() {
         if (value && value !== "undefined") {
             setDictionaryItems(JSON.parse(value));
         }
-
-        setHasExtension(true);
     }
 
     function handleItemChange(index, type, value) {
@@ -48,23 +45,6 @@ function DictionaryContainer() {
         newDictionaryItemsArray.splice(removalIndex, 1);
 
         setDictionaryItems(newDictionaryItemsArray.slice(0));
-    }
-
-    if (!hasExtension) {
-        return (
-            <section className="dictionary-container">
-                <NotInstalled />
-
-                <div style={{ display: "none" }}>
-                    <input
-                        id="dictionaryItems"
-                        type="text"
-                        onChange={handleDictionaryInsertion}
-                        value={JSON.stringify(dictionaryItems)}
-                    />
-                </div>
-            </section>
-        );
     }
 
     const dictionaryItemsEl = dictionaryItems
@@ -107,7 +87,6 @@ function DictionaryContainer() {
 
     return (
         <section className="dictionary-container">
-
             <DictionaryVaultContainer
                 authUser={authUser}
                 dictionaryItems={dictionaryItems}
@@ -118,7 +97,7 @@ function DictionaryContainer() {
                 <h2>Translations Dictionary</h2>
 
                 <table className="dictionary-items">
-                    <caption>List of Words and their Translations</caption>
+                    <caption style={{ display: "none" }}>List of Words and their Translations</caption>
                     <thead>
                         <tr>
                             <th>Word(s)</th>
@@ -133,7 +112,7 @@ function DictionaryContainer() {
             </div>
 
 
-            <button id="save-settings" className="save-button">Save Settings</button>
+            <button id="save-settings" className="save-button" disabled={!haveExtension}>Save Settings</button>
 
             <NewInputComponent addDictionaryItem={addDictionaryItem} />
 
@@ -143,6 +122,12 @@ function DictionaryContainer() {
                     type="text"
                     onChange={handleDictionaryInsertion}
                     value={JSON.stringify(dictionaryItems)}
+                />
+                <input
+                    id="extensionCheckbox"
+                    type="checkbox"
+                    onChange={event => setHaveExtension(event.target.checked)}
+                    checked={haveExtension}
                 />
             </div>
         </section>

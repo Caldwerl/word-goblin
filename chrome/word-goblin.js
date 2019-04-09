@@ -79,10 +79,14 @@
 
     function homepageInterface(dictionaryString) {
         const dictionarySourceEl = document.getElementById("dictionaryItems");
+        const extensionCheckboxEl = document.getElementById("extensionCheckbox");
         const saveSettingsEl = document.getElementById("save-settings");
 
         dictionarySourceEl.value = dictionaryString;
         dictionarySourceEl.dispatchEvent(new Event("change", { bubbles: true }));
+
+        extensionCheckboxEl.checked = true;
+        extensionCheckboxEl.dispatchEvent(new Event("click", { bubbles: true }));
 
         saveSettingsEl.addEventListener("click", saveStorageData);
     }

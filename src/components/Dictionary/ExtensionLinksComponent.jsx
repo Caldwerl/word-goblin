@@ -1,8 +1,8 @@
 import React from "react";
 
-function NotInstalledComponent() {
+function ExtensionLinksComponent() {
     return (
-        <span>
+        <section className="extension-links">
             <h2>Get the Word-Goblin extension for your browser!</h2>
             <img alt="word-goblin logo" src="./images/word-goblin-48.png" />
             <div>
@@ -23,8 +23,8 @@ function NotInstalledComponent() {
                     Get this Extension for <span role="img" aria-label="firefox emoji">🦊</span> Firefox
                 </a>
             </div>
-        </span>
+        </section>
     );
 }
 
-export default NotInstalledComponent;
+export default ExtensionLinksComponent;

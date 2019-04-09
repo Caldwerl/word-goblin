@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { object } from "prop-types";
+import React, { useContext, useState } from "react";
 
+import { AuthUserContext } from "../App";
 import DictionaryVaultContainer from "./DictionaryVaultContainer";
+import NewInputComponent from "./NewInputComponent";
 
 import "./DictionaryContainer.scss";
 
-function DictionaryContainer({ authUser }) {
+function DictionaryContainer() {
     const [dictionaryItems, setDictionaryItems] = useState([]);
-    const [hasExtension, setHasExtension] = useState(false);
-    const [newItemTranslation, setNewItemTranslation] = useState("");
-    const [newItemWord, setNewItemWord] = useState("");
+    const [haveExtension, setHaveExtension] = useState(false);
+    const authUser = useContext(AuthUserContext);
 
     function loadDictionaryList(newDictionary) {
         setDictionaryItems(newDictionary);
@@ -22,106 +22,38 @@ function DictionaryContainer({ authUser }) {
         if (value && value !== "undefined") {
             setDictionaryItems(JSON.parse(value));
         }
-
-        setHasExtension(true);
     }
 
     function handleItemChange(index, type, value) {
-        // const { dictionaryItems } = this.state;
-
         const updatedDictionaryItems = dictionaryItems.slice(0);
 
         updatedDictionaryItems[index][type] = value;
 
         setDictionaryItems(updatedDictionaryItems);
-        // return this.setState({
-        //     dictionaryItems: updatedDictionaryItems,
-        // });
     }
 
-    function addDictionaryItem() {
-        // const { dictionaryItems, newItemTranslation, newItemWord } = this.state;
-
-        setNewItemTranslation("");
-        setNewItemWord("");
+    function addDictionaryItem(word, translation) {
         setDictionaryItems(dictionaryItems.concat([{
-            word: newItemWord.trim(),
-            translation: newItemTranslation.trim(),
+            word: word.trim(),
+            translation: translation.trim(),
         }]));
-
-        // return this.setState({
-        //     dictionaryItems: dictionaryItems.concat([{
-        //         word: newItemWord.trim(),
-        //         translation: newItemTranslation.trim(),
-        //     }]),
-        //     newItemWord: "",
-        //     newItemTranslation: "",
-        // });
     }
 
     function removeDictionaryItem(removalIndex) {
-        // const { dictionaryItems } = this.state;
         const newDictionaryItemsArray = dictionaryItems.slice(0);
 
         newDictionaryItemsArray.splice(removalIndex, 1);
 
         setDictionaryItems(newDictionaryItemsArray.slice(0));
-        // return this.setState({
-        //     dictionaryItems: newDictionaryItemsArray.slice(0),
-        // });
-    }
-
-    // render() {
-    //     const { dictionaryItems, hasExtension, newItemTranslation, newItemWord } = this.state;
-    //     const { authUser } = this.props;
-
-    if (!hasExtension) {
-        return (
-            <section className="dictionary-container">
-                <h2>Get the Word-Goblin extension for your browser!</h2>
-                <img alt="word-goblin logo" src="./images/word-goblin-48.png" />
-                <span>
-                    <div>
-                        <a
-                            href="https://chrome.google.com/webstore/detail/word-goblin/flhfdnddbbolekjiljaijkpbjopnmglf?hl=en-US"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            Get this Extension for Chrome
-                        </a>
-                    </div>
-                    <div>
-                        <a
-                            href="https://addons.mozilla.org/en-US/android/addon/word-goblin/"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            Get this Extension for <span role="img" aria-label="firefox emoji">🦊</span> Firefox
-                        </a>
-                    </div>
-                </span>
-
-
-                <div style={{ display: "none" }}>
-                    <input
-                        id="dictionaryItems"
-                        type="text"
-                        onChange={handleDictionaryInsertion}
-                        value={JSON.stringify(dictionaryItems)}
-                    />
-                </div>
-            </section>
-        );
     }
 
     const dictionaryItemsEl = dictionaryItems
         .map((dictionaryItem, index) => (
-            <div
+            <tr
                 key={`dictionary-item-${index}`} // eslint-disable-line react/no-array-index-key
                 className="dictionary-item"
             >
-                <span>
-                    <label htmlFor={`word-${index}`}>Word(s):</label>
+                <td>
                     <input
                         id={`word-${index}`}
                         name={`word-${index}`}
@@ -129,10 +61,9 @@ function DictionaryContainer({ authUser }) {
                         type="text"
                         value={dictionaryItem.word}
                     />
-                </span>
+                </td>
 
-                <span>
-                    <label htmlFor={`translation-${index}`}>Translation:</label>
+                <td>
                     <input
                         id={`translation-${index}`}
                         name={`translation-${index}`}
@@ -140,20 +71,22 @@ function DictionaryContainer({ authUser }) {
                         type="text"
                         value={dictionaryItem.translation}
                     />
-                </span>
-                <button
-                    id={`remove-${index}`}
-                    className="remove-button"
-                    onClick={() => removeDictionaryItem(index)}
-                >
-                    Remove Item
-                </button>
-            </div>
+                </td>
+
+                <td>
+                    <button
+                        id={`remove-${index}`}
+                        className="remove-button"
+                        onClick={() => removeDictionaryItem(index)}
+                    >
+                        Remove Item
+                    </button>
+                </td>
+            </tr>
         ));
 
     return (
         <section className="dictionary-container">
-
             <DictionaryVaultContainer
                 authUser={authUser}
                 dictionaryItems={dictionaryItems}
@@ -163,50 +96,25 @@ function DictionaryContainer({ authUser }) {
             <div>
                 <h2>Translations Dictionary</h2>
 
-                <div className="dictionary-items">
-                    {dictionaryItemsEl}
-                </div>
+                <table className="dictionary-items">
+                    <caption style={{ display: "none" }}>List of Words and their Translations</caption>
+                    <thead>
+                        <tr>
+                            <th>Word(s)</th>
+                            <th>Translation</th>
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dictionaryItemsEl}
+                    </tbody>
+                </table>
             </div>
 
 
-            <button id="save-settings" className="save-button">Save Settings</button>
+            <button id="save-settings" className="save-button" disabled={!haveExtension}>Save Settings</button>
 
-            <div className="new-input">
-                <h2>New Item Input</h2>
-                <p>Word(s) can search for multiple values using ( | ) to replace with one Translation.</p>
-                <p>For example: Word(s): (stomach|boat|pear) Translation: 배</p>
-                <p>Capitalization is ignored.</p>
-
-                <span>
-                    <label htmlFor="new-word">Word(s):</label>
-                    <input
-                        id="newItemWord"
-                        name="new-word"
-                        // onChange={handleInputChange}
-                        onChange={event => setNewItemWord(event.target.value)}
-                        type="text"
-                        value={newItemWord}
-                    />
-                </span>
-                <span>
-                    <label htmlFor="new-translation">Translation:</label>
-                    <input
-                        id="newItemTranslation"
-                        name="new-translation"
-                        // onChange={handleInputChange}
-                        onChange={event => setNewItemTranslation(event.target.value)}
-                        type="text"
-                        value={newItemTranslation}
-                    />
-                </span>
-                <button
-                    id="add-button"
-                    className="add-button"
-                    onClick={addDictionaryItem}
-                >
-                    Add Item
-                </button>
-            </div>
+            <NewInputComponent addDictionaryItem={addDictionaryItem} />
 
             <div style={{ display: "none" }}>
                 <input
@@ -215,18 +123,15 @@ function DictionaryContainer({ authUser }) {
                     onChange={handleDictionaryInsertion}
                     value={JSON.stringify(dictionaryItems)}
                 />
+                <input
+                    id="extensionCheckbox"
+                    type="checkbox"
+                    onChange={event => setHaveExtension(event.target.checked)}
+                    checked={haveExtension}
+                />
             </div>
         </section>
     );
-    // }
 }
-
-DictionaryContainer.propTypes = {
-    authUser: object,
-};
-
-DictionaryContainer.defaultProps = {
-    authUser: null,
-};
 
 export default DictionaryContainer;

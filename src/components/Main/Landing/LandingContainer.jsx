@@ -1,26 +1,19 @@
 import React from "react";
-import { object } from "prop-types";
 
 import DictionaryContainer from "./../../Dictionary/DictionaryContainer";
+import ExtensionLinksContainer from "./../../Dictionary/ExtensionLinksComponent";
 import SuggestionContainer from "./../../Suggestions/SuggestionContainer";
 
-function LandingContainer({ authUser }) {
+function LandingContainer() {
     return (
         <main className="landing-container">
+            <ExtensionLinksContainer />
             <h2>Edit / Save / Load your personal Language Translation Dictionaries</h2>
-            <DictionaryContainer authUser={authUser} />
+            <DictionaryContainer />
 
-            <SuggestionContainer authUser={authUser} />
+            <SuggestionContainer />
         </main>
     );
 }
-
-LandingContainer.propTypes = {
-    authUser: object,
-};
-
-LandingContainer.defaultProps = {
-    authUser: null,
-};
 
 export default LandingContainer;

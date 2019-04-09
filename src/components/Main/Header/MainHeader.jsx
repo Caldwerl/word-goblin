@@ -1,13 +1,12 @@
 import React from "react";
-import { object } from "prop-types";
 
 import UserAuthContainer from "../../User/UserAuthContainer";
 
 import "./MainHeader.scss";
 
-import "./../../../icons/word-goblin-48.png";
+import "../../../icons/word-goblin-48.png";
 
-function MainHeader({ authUser }) {
+function MainHeader() {
     return (
         <header className="main-header">
             <nav>
@@ -16,18 +15,10 @@ function MainHeader({ authUser }) {
                 <h3>Dictionary</h3>
                 <h3>About</h3>
 
-                <UserAuthContainer authUser={authUser} />
+                <UserAuthContainer />
             </nav>
         </header>
     );
 }
-
-MainHeader.propTypes = {
-    authUser: object,
-};
-
-MainHeader.defaultProps = {
-    authUser: null,
-};
 
 export default MainHeader;

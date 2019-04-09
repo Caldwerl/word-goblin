@@ -1,4 +1,6 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
 
 const config = {
     apiKey: "AIzaSyAUvnhZpyVySdhooFAbkRqD1QO5qr7qkxE",
@@ -29,17 +31,3 @@ module.exports = {
     },
     DB,
 };
-
-// const targetRef = DB.ref("restaurants/single-platform");
-
-// function writeToFirebase(data) {
-//     return targetRef.update(data);
-// }
-
-// function readFromFirebase() {
-//     return targetRef.once("value", (snapshot) => {
-//         if (snapshot.val()) {
-//             fs.writeFileSync("./output/single-platform/restaurants-raw-data.json", JSON.stringify(snapshot.val()));
-//         }
-//     });
-// }

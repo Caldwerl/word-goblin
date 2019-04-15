@@ -4,6 +4,9 @@ import DOMPurify from "dompurify";
 
 import { AuthUserContext } from "../App";
 import api from "../common/api";
+import ImageHeadline from "../common/ImageHeadline/ImageHeadline";
+
+import "./SuggestionContainer.scss";
 
 function SuggestionContainer() {
     const [suggestionString, setSuggestionString] = useState("");
@@ -13,31 +16,42 @@ function SuggestionContainer() {
     function saveSuggestion() {
         const sanitizedInputString = DOMPurify.sanitize(suggestionString);
 
-        api.saveSuggestion({
-            user: authUser ? authUser.uid : "anonymous",
-            suggestion: sanitizedInputString,
-        })
-            .then(() => {
-                setResponseString("Thank you for the suggestion!");
-                setSuggestionString("");
+        if (sanitizedInputString.length) {
+            api.saveSuggestion({
+                user: authUser ? authUser.uid : "anonymous",
+                suggestion: sanitizedInputString,
             })
-            .catch(() => (
-                setResponseString("There was an error! Please try again later.")
-            ));
+                .then(() => {
+                    setResponseString("Thank you for the suggestion!");
+                    setSuggestionString("");
+                })
+                .catch(() => (
+                    setResponseString("There was an error! Please try again later.")
+                ));
+        }
     }
 
     return (
-        <section className="suggestion-container">
-            <h2>Suggestion Box</h2>
-            <p>Have a favorite website you want Word Goblin to support?</p>
-            <p>An improvement or issue? Let us know here!</p>
+        <section className="suggestion-container container">
+            <ImageHeadline
+                text="Suggestion Box"
+            />
+            <h3>Have a favorite website you want Word Goblin to support?</h3>
+            <h3>An improvement or issue? Let us know here!</h3>
             <textarea
+                className="form-control"
                 onChange={event => setSuggestionString(event.target.value)}
                 rows="4"
                 value={suggestionString}
             />
-            <button onClick={saveSuggestion}>Submit</button>
-            <p>{responseString}</p>
+            <button
+                className="btn btn-primary"
+                disabled={!suggestionString.length}
+                onClick={saveSuggestion}
+            >
+                Submit
+            </button>
+            <h3>{responseString}</h3>
         </section>
     );
 }

@@ -7,22 +7,55 @@ body {
     font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h2 {
+h3 {
     font-family: inherit;
-    font-weight: normal;
     text-align: center;
 }
 
 button {
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 10px;
     width: 80%;
     margin-left: 10%;
     margin-right: auto;
-    margin-bottom: 10px;
-    text-align: left;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    color: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: 4px;
+    font-weight: bold;
+
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+
+    background-color: #0080FF;
+    border-color: #006DD9;
+}
+
+button:hover {
+    background-color: #006DD9;
+    border-color: #003AA6;
 }
 
 span {

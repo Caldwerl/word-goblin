@@ -1,23 +1,23 @@
 @import "../common/_mixins.scss";
 
 .user-container, .user-details {
-    align-content: space-around;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin-left: auto;
-    margin-right: 0;
+    // align-content: space-around;
+    // align-items: center;
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    // justify-content: flex-start;
+    // margin-left: auto;
+    // margin-right: 0;
 }
 
 .user-details {
     img {
         border-radius: 100%;
-        max-width: 50px;
+        max-width: 60px;
     }
 
-    p, button {
+    h3, button, img {
         display: block;
         @include centerHorizontal();
     }

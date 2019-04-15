@@ -1,13 +1,9 @@
 @import "../common/_mixins.scss";
 
-.dictionary-container {
-    h2 {
-        text-align: center;
-    }
+.suggestion-container {
     button {
         display: block;
         margin-top: 20px;
-        margin-bottom: 20px;
         @include centerHorizontal();
     }
 }

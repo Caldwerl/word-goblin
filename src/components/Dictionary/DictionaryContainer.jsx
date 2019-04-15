@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 import { AuthUserContext } from "../App";
 import DictionaryVaultContainer from "./DictionaryVaultContainer";
+import ImageHeadline from "../common/ImageHeadline/ImageHeadline";
 import NewInputComponent from "./NewInputComponent";
 
 import "./DictionaryContainer.scss";
@@ -54,8 +55,12 @@ function DictionaryContainer() {
                 className="dictionary-item"
             >
                 <td>
+                    <h3>{index + 1}</h3>
+                </td>
+                <td className="form-group">
                     <input
                         id={`word-${index}`}
+                        className="form-control"
                         name={`word-${index}`}
                         onChange={event => handleItemChange(index, "word", event.target.value)}
                         type="text"
@@ -66,6 +71,7 @@ function DictionaryContainer() {
                 <td>
                     <input
                         id={`translation-${index}`}
+                        className="form-control"
                         name={`translation-${index}`}
                         onChange={event => handleItemChange(index, "translation", event.target.value)}
                         type="text"
@@ -76,17 +82,17 @@ function DictionaryContainer() {
                 <td>
                     <button
                         id={`remove-${index}`}
-                        className="remove-button"
+                        className="btn btn-danger"
                         onClick={() => removeDictionaryItem(index)}
                     >
-                        Remove Item
+                        Remove
                     </button>
                 </td>
             </tr>
         ));
 
     return (
-        <section className="dictionary-container">
+        <section className="dictionary-container container">
             <DictionaryVaultContainer
                 authUser={authUser}
                 dictionaryItems={dictionaryItems}
@@ -94,12 +100,15 @@ function DictionaryContainer() {
             />
 
             <div>
-                <h2>Translations Dictionary</h2>
+                <ImageHeadline
+                    text="Translations Dictionary"
+                />
 
-                <table className="dictionary-items">
+                <table className="dictionary-items table table-striped table-hover">
                     <caption style={{ display: "none" }}>List of Words and their Translations</caption>
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Word(s)</th>
                             <th>Translation</th>
                             <th />
@@ -112,19 +121,27 @@ function DictionaryContainer() {
             </div>
 
 
-            <button id="save-settings" className="save-button" disabled={!haveExtension}>Save Settings</button>
+            <button
+                id="save-settings"
+                className="btn btn-primary"
+                disabled={!haveExtension}
+            >
+                Apply this Dictionary to Extension
+            </button>
 
             <NewInputComponent addDictionaryItem={addDictionaryItem} />
 
             <div style={{ display: "none" }}>
                 <input
                     id="dictionaryItems"
+                    className="form-control"
                     type="text"
                     onChange={handleDictionaryInsertion}
                     value={JSON.stringify(dictionaryItems)}
                 />
                 <input
                     id="extensionCheckbox"
+                    className="form-control"
                     type="checkbox"
                     onChange={event => setHaveExtension(event.target.checked)}
                     checked={haveExtension}

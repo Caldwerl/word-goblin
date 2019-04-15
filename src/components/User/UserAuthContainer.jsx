@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { AuthUserContext } from "../App";
-import { Auth, authProviders } from "../common/firebase";
+import { Auth, authProviders, authProviderNames } from "../common/firebase";
 
 import "./UserAuthContainer.scss";
 
@@ -26,31 +26,42 @@ function UserAuthContainer() {
         Auth.signOut();
     }
 
+    const authButtons = authProviderNames.map(authSource => (
+        <div
+            key={authSource}
+            className="col-md-4 col-sm-6"
+        >
+            <button
+                className="btn btn-primary"
+                onClick={() => signInWith(authSource)}
+            >
+                Sign in with {authSource}
+            </button>
+        </div>
+    ));
+
     return (
-        <section className="user-container">
+        <div className="user-container">
             {authUser ?
-                <div className="user-details">
-                    <img alt="profile" src={authUser.photoURL} />
-                    <div>
-                        <p>{authUser.email}</p>
+                <div className="user-details row">
+                    <div className="col-md-4 col-md-offset-4">
+                        <img alt="profile" src={authUser.photoURL} />
+                        <h3>{authUser.email}</h3>
+                    </div>
+                    <div className="col-md-4">
                         <button
-                            className="sign-out-button"
+                            className="btn btn-warning"
                             onClick={signOut}
                         >
                             Sign Out
                         </button>
                     </div>
                 </div> :
-                <div className="user-details">
-                    <button
-                        className="auth-button"
-                        onClick={() => signInWith("Google")}
-                    >
-                        Sign in with Google
-                    </button>
+                <div className="user-details row">
+                    {authButtons}
                 </div>
             }
-        </section>
+        </div>
     );
 }
 

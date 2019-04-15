@@ -6,6 +6,8 @@ import MainHeader from "./Main/Header/MainHeader";
 import LandingContainer from "./Main/Landing/LandingContainer";
 
 import "./App.scss";
+import "./common/bootstrap.css";
+import "./common/bootstrap-theme.css";
 
 export const AuthUserContext = createContext(null);
 

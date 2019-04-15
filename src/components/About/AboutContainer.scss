@@ -1,0 +1,12 @@
+@import "../common/_common.scss";
+@import "../common/_mixins.scss";
+
+.about-container {
+    .site-listing {
+        div {
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding: 10px;
+        }
+    }
+}

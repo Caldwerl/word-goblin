@@ -8,11 +8,17 @@
 
 html {
     height: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
-body, html {
+body, html, header, main, #root {
     background-color: $backgroundWhite;
     margin: 0px;
+}
+
+h3 {
+    text-align: center;
 }
 
 b {
@@ -20,6 +26,10 @@ b {
 }
 
 a {
+    color: $wordGoblinBlue;
+    &:hover {
+        text-decoration: underline;
+    }
     text-decoration: none;
 }
 
@@ -36,41 +46,23 @@ a {
     min-height: 100vh;
 
     main {
+        align-content: space-around;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
         max-width: $breakpointTablet;
         min-height: 100vh;
         @include centerHorizontal();
+
+        section {
+            width: 100%;
+            margin: {
+                bottom: 40px;
+                top: 60px;
+            }
+        }
     }
-}
-
-button {
-    background-color: #6C757D;
-    border-color: #6C757D;
-    border-radius: .25rem;
-    color: #FFF;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 1.5;
-    margin: 5px;
-    padding: 5px;
-}
-
-.remove-button {
-    background-color: #DC3545;
-    border-color: #DC3545;
-}
-
-.add-button {
-    background-color: #28A745;
-    border-color: #28A745;
-}
-
-.undo-button {
-    background-color: #6C757D;
-    border-color: #6C757D;
-}
-
-.save-button {
-    background-color: #007BFF;
-    border-color: #007BFF;
 }

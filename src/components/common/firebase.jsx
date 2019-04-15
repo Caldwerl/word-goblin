@@ -16,18 +16,26 @@ const devFirebase = firebase.initializeApp(config, "devFirebase");
 const DB = devFirebase.database();
 const Auth = devFirebase.auth();
 
-const providerGoogle = new firebase.auth.GoogleAuthProvider();
-const providerFacebook = new firebase.auth.FacebookAuthProvider();
+// const providerFacebook = new firebase.auth.FacebookAuthProvider();
 const providerGithub = new firebase.auth.GithubAuthProvider();
+const providerGoogle = new firebase.auth.GoogleAuthProvider();
+const providerTwitter = new firebase.auth.TwitterAuthProvider();
 
 Auth.useDeviceLanguage();
 
 module.exports = {
     Auth,
     authProviders: {
-        Google: providerGoogle,
-        Facebook: providerFacebook,
+        // Facebook: providerFacebook,
         Github: providerGithub,
+        Google: providerGoogle,
+        Twitter: providerTwitter,
     },
+    authProviderNames: [
+        // "Facebook",
+        "Github",
+        "Google",
+        "Twitter",
+    ],
     DB,
 };

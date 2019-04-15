@@ -4,6 +4,8 @@ import { array, func, object } from "prop-types";
 import DOMPurify from "dompurify";
 
 import api from "../common/api";
+import ImageHeadline from "../common/ImageHeadline/ImageHeadline";
+import UserAuthContainer from "../User/UserAuthContainer";
 
 class DictionaryVaultContainer extends React.Component {
     constructor(props) {
@@ -88,7 +90,8 @@ class DictionaryVaultContainer extends React.Component {
     saveVaultItem() {
         const { currentDictionaryTitle, currentVaultSelectionIndex } = this.state;
         const { authUser, dictionaryItems } = this.props;
-        const sanitizedTitleString = DOMPurify.sanitize(currentDictionaryTitle);
+        let sanitizedTitleString = DOMPurify.sanitize(currentDictionaryTitle);
+        sanitizedTitleString = sanitizedTitleString || "Unnamed Dictionary";
 
         const sanitizedDictionaryItems = dictionaryItems.map(dictionaryItem => ({
             translation: DOMPurify.sanitize(dictionaryItem.translation),
@@ -122,9 +125,15 @@ class DictionaryVaultContainer extends React.Component {
 
         if (!authUser) {
             return (
-                <section className="vault-container">
+                <section className="vault-container container">
                     <div className="vault-details">
-                        Sign In to access your Dictionary Vault
+                        <ImageHeadline
+                            text="Dictionary Vault"
+                        />
+                        <h3>Sign In to access your Dictionary Vault</h3>
+                        <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
+
+                        <UserAuthContainer />
                     </div>
                 </section>
             );
@@ -135,50 +144,60 @@ class DictionaryVaultContainer extends React.Component {
         ));
 
         return (
-            <section className="vault-container">
-                <div className="vault-details">
-                    <h2>Dictionary Vault</h2>
+            <section className="vault-container container">
+                <ImageHeadline
+                    text="Dictionary Vault"
+                />
+                <div className="vault-details row">
 
-                    <span>
-                        <label htmlFor="dictionary-title">Dictionary Title:</label>
+                    <UserAuthContainer />
+
+                    <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
+
+                    <div className="col-md-6">
+                        <label htmlFor="dictionary-title">Current Dictionary Title:</label>
                         <input
                             id="dictionary-title"
+                            className="form-control"
                             name="dictionary-title"
                             onChange={this.handleTitleChange}
                             type="text"
                             value={currentDictionaryTitle}
                         />
-                    </span>
-                    <button
-                        className="save-button"
-                        onClick={this.saveVaultItem}
-                    >
-                        {
-                            parseInt(currentVaultSelectionIndex, 10) === vaultDataOptions.length ?
-                                "Save New Dictionary" :
-                                "Save Current Dictionary"
-                        }
-                    </button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={this.saveVaultItem}
+                        >
+                            {
+                                parseInt(currentVaultSelectionIndex, 10) === vaultDataOptions.length ?
+                                    "Save New Dictionary To Vault" :
+                                    "Save Current Dictionary To Vault"
+                            }
+                        </button>
+                    </div>
 
-                    <button
-                        className="load-button"
-                        onClick={this.loadVaultItem}
-                    >
-                        {
-                            parseInt(currentVaultSelectionIndex, 10) === vaultDataOptions.length ?
-                                "Create a New Dictionary" :
-                                "Load this Dictionary"
-                        }
-                    </button>
-
-                    <select
-                        id="dictionary-select"
-                        value={currentVaultSelectionIndex}
-                        onChange={this.handleVaultSelect}
-                    >
-                        {vaultDataOptions}
-                        <option value={vaultDataOptions.length}>Create a New Dictionary</option>
-                    </select>
+                    <div className="col-md-6">
+                        <label htmlFor="dictionary-select">Your Dictionary List:</label>
+                        <select
+                            className="form-control"
+                            id="dictionary-select"
+                            value={currentVaultSelectionIndex}
+                            onChange={this.handleVaultSelect}
+                        >
+                            {vaultDataOptions}
+                            <option value={vaultDataOptions.length}>Create a New Dictionary</option>
+                        </select>
+                        <button
+                            className="btn btn-warning"
+                            onClick={this.loadVaultItem}
+                        >
+                            {
+                                parseInt(currentVaultSelectionIndex, 10) === vaultDataOptions.length ?
+                                    "Create a New Dictionary" :
+                                    "Load this Dictionary from Vault"
+                            }
+                        </button>
+                    </div>
                 </div>
             </section>
         );

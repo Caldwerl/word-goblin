@@ -8,11 +8,7 @@ function NewInputComponent({ addDictionaryItem }) {
     return (
         <div className="new-input">
             <h2>New Item Input</h2>
-            <p>Word(s) can search for multiple values using ( | ) to replace with one Translation.</p>
-            <p>For example: Word(s): (stomach|boat|pear) Translation: 배</p>
-            <p>Capitalization is ignored.</p>
-
-            <table className="dictionary-items">
+            <table className="dictionary-items table">
                 <caption style={{ display: "none" }}>Inputs for new translations</caption>
                 <thead>
                     <tr>
@@ -26,6 +22,7 @@ function NewInputComponent({ addDictionaryItem }) {
                         <td>
                             <input
                                 id="newItemWord"
+                                className="form-control"
                                 name="new-word"
                                 onChange={event => setNewItemWord(event.target.value)}
                                 type="text"
@@ -35,6 +32,7 @@ function NewInputComponent({ addDictionaryItem }) {
                         <td>
                             <input
                                 id="newItemTranslation"
+                                className="form-control"
                                 name="new-translation"
                                 onChange={event => setNewItemTranslation(event.target.value)}
                                 type="text"
@@ -44,19 +42,23 @@ function NewInputComponent({ addDictionaryItem }) {
                         <td>
                             <button
                                 id="add-button"
-                                className="add-button"
+                                className="btn btn-success"
                                 onClick={() => {
                                     addDictionaryItem(newItemWord, newItemTranslation);
                                     setNewItemTranslation("");
                                     setNewItemWord("");
                                 }}
                             >
-                                Add Item
+                                Add
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+
+            <h4>Word(s) can search for multiple values using ( | ) to replace with one Translation.</h4>
+            <h4>For example: Word(s): (stomach|boat|pear) Translation: 배</h4>
+            <h4>Capitalization is ignored.</h4>
         </div>
     );
 }

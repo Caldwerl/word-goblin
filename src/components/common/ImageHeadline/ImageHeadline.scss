@@ -1,0 +1,15 @@
+.image-headline {
+    align-content: space-around;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    border-bottom: 2px #000 solid;
+    margin-bottom: 20px;
+
+    img {
+        margin-right: 15px;
+    }
+}

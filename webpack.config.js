@@ -59,7 +59,7 @@ const config = {
             { test: /\.ico$/, loader: "file-loader?name=[name].[ext]" },
             { test: /\.(png|jpg|gif)$/, loader: "file-loader?name=images/[name].[ext]" },
             { test: /app-store-badge\.svg$/, loader: "file-loader?name=images/[name].[ext]" },
-            { test: /\.scss$/, loader: ["style-loader", "css-loader", "sass-loader"] },
+            { test: /\.(scss|css)$/, loader: ["style-loader", "css-loader", "sass-loader"] },
         ],
     },
     devServer: {

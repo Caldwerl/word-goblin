@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Word Goblin",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Swaps out words in your browser with a dictionary of your choice to assist in language learning.",
     "homepage_url": "https://www.word-goblin.com",
     "icons": {
@@ -14,13 +14,12 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.word-goblin.com/*",
+                "https://www.word-goblin.com/",
                 "*://forums.somethingawful.com/showthread*",
                 "*://www.reddit.com/*/comments/*",
                 "*://news.ycombinator.com/item*",
                 "*://www.nytimes.com/*",
-
-                "<all_urls>"
+                "*://*.medium.com/*"
             ],
             "js": [
                 "word-goblin.js"

@@ -5,8 +5,7 @@
     let selectorType = null;
     let isHomepage = false;
 
-    if (window.location.origin.includes("localhost")) {
-    // if (window.location.origin.includes("word-goblin")) {
+    if (window.location.origin.includes("word-goblin")) {
         isHomepage = true;
     } else if (window.location.origin.includes("somethingawful")) {
         selector = "postbody";
@@ -17,7 +16,7 @@
     } else if (window.location.origin.includes("ycombinator")) {
         selector = "commtext";
         selectorType = "class";
-    } else if (window.location.origin.includes("nytimes")) {
+    } else if (window.location.origin.includes("nytimes") || window.location.origin.includes("medium")) {
         selector = "article";
         selectorType = "tag";
     }

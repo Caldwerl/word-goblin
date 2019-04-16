@@ -5,9 +5,10 @@ import ImageHeadline from "../common/ImageHeadline/ImageHeadline";
 import "./AboutContainer.scss";
 
 const siteList = [
-    "www.reddit.com",
-    "www.nytimes.com",
+    "nytimes.com",
     "news.ycombinator.com",
+    "medium.com",
+    "reddit.com",
     "forums.somethingawful.com",
 ];
 

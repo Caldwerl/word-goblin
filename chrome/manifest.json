@@ -14,13 +14,12 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.word-goblin.com/*",
+                "https://www.word-goblin.com/",
                 "*://forums.somethingawful.com/showthread*",
                 "*://www.reddit.com/*/comments/*",
                 "*://news.ycombinator.com/item*",
                 "*://www.nytimes.com/*",
-
-                "<all_urls>"
+                "*://*medium.com/*"
             ],
             "js": [
                 "word-goblin.js"

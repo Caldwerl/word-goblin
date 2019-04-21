@@ -44,7 +44,7 @@ function AboutContainer() {
                 </div>
                 <div className="links col-md-6 col-sm-6">
                     <a
-                        href="https://addons.mozilla.org/en-US/android/addon/word-goblin/"
+                        href="https://addons.mozilla.org/en-US/firefox/addon/word-goblin/"
                         rel="noopener noreferrer"
                         target="_blank"
                     >

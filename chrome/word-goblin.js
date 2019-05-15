@@ -34,7 +34,7 @@
 
     function replaceText(node, searchText, replacementText) {
         if (node.nodeType === 3) { // Is it a Text node?
-            const text = node.data.trim();
+            const text = node.data;
             if (text.length > 0) { // Does it have non white-space text content?
                 const regex = typeof searchText === "string" ? new RegExp(`\\b${searchText}\\b`, "ig") : searchText;
 

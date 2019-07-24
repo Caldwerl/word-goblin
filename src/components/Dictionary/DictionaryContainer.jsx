@@ -16,15 +16,6 @@ function DictionaryContainer() {
         setDictionaryItems(newDictionary);
     }
 
-    function handleDictionaryInsertion(event) {
-        const { target } = event;
-        const { value } = target;
-
-        if (value && value !== "undefined") {
-            setDictionaryItems(JSON.parse(value));
-        }
-    }
-
     function handleItemChange(index, type, value) {
         const updatedDictionaryItems = dictionaryItems.slice(0);
 
@@ -97,11 +88,12 @@ function DictionaryContainer() {
                 authUser={authUser}
                 dictionaryItems={dictionaryItems}
                 loadDictionaryListFunc={loadDictionaryList}
+                haveExtension={haveExtension}
             />
 
             <div>
                 <ImageHeadline
-                    text="Translations Dictionary"
+                    text="Translations Dictionary Editor"
                 />
 
                 <table className="dictionary-items table table-striped table-hover">
@@ -120,25 +112,9 @@ function DictionaryContainer() {
                 </table>
             </div>
 
-
-            <button
-                id="save-settings"
-                className="btn btn-primary"
-                disabled={!haveExtension}
-            >
-                Apply this Dictionary to Extension
-            </button>
-
             <NewInputComponent addDictionaryItem={addDictionaryItem} />
 
             <div style={{ display: "none" }}>
-                <input
-                    id="dictionaryItems"
-                    className="form-control"
-                    type="text"
-                    onChange={handleDictionaryInsertion}
-                    value={JSON.stringify(dictionaryItems)}
-                />
                 <input
                     id="extensionCheckbox"
                     className="form-control"

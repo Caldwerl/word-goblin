@@ -1,5 +1,5 @@
 import React from "react";
-import { array, func, object } from "prop-types";
+import { array, bool, func, object } from "prop-types";
 
 import DOMPurify from "dompurify";
 
@@ -12,11 +12,14 @@ class DictionaryVaultContainer extends React.Component {
         super(props);
 
         this.state = {
+            checkboxes: [],
             currentDictionaryTitle: "",
             currentVaultSelectionIndex: 0,
             vaultData: [],
         };
 
+        this.handleCheckbox = this.handleCheckbox.bind(this);
+        this.handleCheckAll = this.handleCheckAll.bind(this);
         this.loadVault = this.loadVault.bind(this);
         this.loadVaultItem = this.loadVaultItem.bind(this);
         this.saveVaultItem = this.saveVaultItem.bind(this);
@@ -55,12 +58,31 @@ class DictionaryVaultContainer extends React.Component {
         }
     }
 
+    handleCheckbox(index, checkedBool) {
+        const { checkboxes } = this.state;
+
+        checkboxes[index] = checkedBool;
+
+        return this.setState({
+            checkboxes,
+        });
+    }
+
+    handleCheckAll(checkedBool) {
+        const { checkboxes } = this.state;
+
+        return this.setState({
+            checkboxes: checkboxes.map(() => checkedBool),
+        });
+    }
+
     loadVault(userID) {
         const firebaseListener = api.getVault(userID);
 
         firebaseListener.on("value", (snapshot) => {
             if (snapshot.val()) {
                 this.setState({
+                    checkboxes: snapshot.val().map(() => false),
                     currentVaultSelectionIndex: snapshot.val().length,
                     vaultData: snapshot.val(),
                 });
@@ -120,8 +142,8 @@ class DictionaryVaultContainer extends React.Component {
     }
 
     render() {
-        const { currentDictionaryTitle, currentVaultSelectionIndex, vaultData } = this.state;
-        const { authUser } = this.props;
+        const { checkboxes, currentDictionaryTitle, currentVaultSelectionIndex, vaultData } = this.state;
+        const { authUser, haveExtension } = this.props;
 
         if (!authUser) {
             return (
@@ -134,6 +156,16 @@ class DictionaryVaultContainer extends React.Component {
                         <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
 
                         <UserAuthContainer />
+
+                        <div style={{ display: "none" }}>
+                            <input
+                                id="dictionaryItems"
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                value={JSON.stringify(vaultData.filter((vaultItem, index) => checkboxes[index]).reduce((accumulator, vaultItem) => (accumulator.concat(vaultItem.dictionary)), []))}
+                            />
+                        </div>
                     </div>
                 </section>
             );
@@ -141,6 +173,19 @@ class DictionaryVaultContainer extends React.Component {
 
         const vaultDataOptions = vaultData.map((vaultItem, index) => (
             <option key={`${vaultItem.title}-${index}`} value={index}>{vaultItem.title}</option> // eslint-disable-line react/no-array-index-key
+        ));
+
+        const vaultDataCheckboxes = vaultData.map((vaultItem, index) => (
+            <div key={`${vaultItem.title}-${index}`} className="col-md-4">{/* eslint-disable-line react/no-array-index-key */}
+                <input
+                    type="checkbox"
+                    id={index}
+                    value={index}
+                    onChange={event => this.handleCheckbox(index, event.target.checked)}
+                    checked={checkboxes[index]}
+                />
+                <label htmlFor={index}>{vaultItem.title}</label>
+            </div>
         ));
 
         return (
@@ -154,6 +199,58 @@ class DictionaryVaultContainer extends React.Component {
 
                     <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
 
+                    <div className="col-md-12">
+                        <ImageHeadline
+                            text="List of Dictionaries to Apply"
+                        />
+                        {vaultDataCheckboxes}
+
+                        <div className="col-md-6">
+                            <button
+                                className="btn btn-success"
+                                disabled={!vaultDataCheckboxes.length}
+                                onClick={() => this.handleCheckAll(true)}
+                            >
+                                Check All
+                            </button>
+                        </div>
+
+                        <div className="col-md-6">
+                            <button
+                                className="btn btn-danger"
+                                disabled={!vaultDataCheckboxes.length}
+                                onClick={() => this.handleCheckAll(false)}
+                            >
+                                Uncheck All
+                            </button>
+                        </div>
+
+                        <div style={{ display: "none" }}>
+                            <input
+                                id="dictionaryItems"
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                value={JSON.stringify(vaultData.filter((value, index) => checkboxes[index]).reduce((accumulator, value) => (accumulator.concat(value.dictionary)), []))}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-md-12">
+                        <button
+                            id="save-settings"
+                            className="btn btn-primary"
+                            disabled={!haveExtension}
+                        >
+                            Apply these Dictionaries to Extension
+                        </button>
+                    </div>
+
+                    <div className="col-md-12">
+                        <ImageHeadline
+                            text="Load / Save Dictionaries to Vault"
+                        />
+                    </div>
                     <div className="col-md-6">
                         <label htmlFor="dictionary-title">Current Dictionary Title:</label>
                         <input
@@ -208,6 +305,7 @@ DictionaryVaultContainer.propTypes = {
     authUser: object,
     dictionaryItems: array.isRequired,
     loadDictionaryListFunc: func.isRequired,
+    haveExtension: bool.isRequired,
 };
 
 DictionaryVaultContainer.defaultProps = {

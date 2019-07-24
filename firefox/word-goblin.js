@@ -76,13 +76,9 @@
         });
     }
 
-    function homepageInterface(dictionaryString) {
-        const dictionarySourceEl = document.getElementById("dictionaryItems");
+    function homepageInterface() {
         const extensionCheckboxEl = document.getElementById("extensionCheckbox");
         const saveSettingsEl = document.getElementById("save-settings");
-
-        dictionarySourceEl.value = dictionaryString;
-        dictionarySourceEl.dispatchEvent(new Event("change", { bubbles: true }));
 
         extensionCheckboxEl.checked = true;
         extensionCheckboxEl.dispatchEvent(new Event("click", { bubbles: true }));
@@ -94,7 +90,7 @@
         const storageItems = await browser.storage.local.get();
 
         if (isHomepage) {
-            homepageInterface(storageItems.dictionary);
+            homepageInterface();
         } else {
             if (storageItems.dictionary) {
                 dictionary = JSON.parse(storageItems.dictionary);

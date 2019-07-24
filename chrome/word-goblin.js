@@ -76,13 +76,9 @@
         });
     }
 
-    function homepageInterface(dictionaryString) {
-        const dictionarySourceEl = document.getElementById("dictionaryItems");
+    function homepageInterface() {
         const extensionCheckboxEl = document.getElementById("extensionCheckbox");
         const saveSettingsEl = document.getElementById("save-settings");
-
-        dictionarySourceEl.value = dictionaryString;
-        dictionarySourceEl.dispatchEvent(new Event("change", { bubbles: true }));
 
         extensionCheckboxEl.checked = true;
         extensionCheckboxEl.dispatchEvent(new Event("click", { bubbles: true }));
@@ -93,7 +89,7 @@
     function getStorageData() {
         chrome.storage.local.get((res) => {
             if (isHomepage) {
-                homepageInterface(res.dictionary);
+                homepageInterface();
             } else {
                 if (res.dictionary) {
                     dictionary = JSON.parse(res.dictionary);

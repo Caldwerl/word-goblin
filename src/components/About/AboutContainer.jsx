@@ -9,7 +9,6 @@ const siteList = [
     "news.ycombinator.com",
     "medium.com",
     "reddit.com",
-    "forums.somethingawful.com",
 ];
 
 function AboutContainer() {

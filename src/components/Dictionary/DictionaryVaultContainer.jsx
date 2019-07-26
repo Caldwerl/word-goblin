@@ -1,5 +1,5 @@
 import React from "react";
-import { array, bool, func, object } from "prop-types";
+import { array, func, object } from "prop-types";
 
 import DOMPurify from "dompurify";
 
@@ -143,29 +143,16 @@ class DictionaryVaultContainer extends React.Component {
 
     render() {
         const { checkboxes, currentDictionaryTitle, currentVaultSelectionIndex, vaultData } = this.state;
-        const { authUser, haveExtension } = this.props;
+        const { authUser } = this.props;
 
         if (!authUser) {
             return (
                 <section className="vault-container container">
                     <div className="vault-details">
-                        <ImageHeadline
-                            text="Dictionary Vault"
-                        />
                         <h3>Sign In to access your Dictionary Vault</h3>
                         <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
 
                         <UserAuthContainer />
-
-                        <div style={{ display: "none" }}>
-                            <input
-                                id="dictionaryItems"
-                                className="form-control"
-                                readOnly
-                                type="text"
-                                value={JSON.stringify(vaultData.filter((vaultItem, index) => checkboxes[index]).reduce((accumulator, vaultItem) => (accumulator.concat(vaultItem.dictionary)), []))}
-                            />
-                        </div>
                     </div>
                 </section>
             );
@@ -190,19 +177,8 @@ class DictionaryVaultContainer extends React.Component {
 
         return (
             <section className="vault-container container">
-                <ImageHeadline
-                    text="Dictionary Vault"
-                />
                 <div className="vault-details row">
-
-                    <UserAuthContainer />
-
-                    <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
-
                     <div className="col-md-12">
-                        <ImageHeadline
-                            text="List of Dictionaries to Apply"
-                        />
                         {vaultDataCheckboxes}
 
                         <div className="col-md-6">
@@ -237,14 +213,13 @@ class DictionaryVaultContainer extends React.Component {
                     </div>
 
                     <div className="col-md-12">
-                        <button
-                            id="save-settings"
-                            className="btn btn-primary"
-                            disabled={!haveExtension}
-                        >
-                            Apply these Dictionaries to Extension
-                        </button>
+                        <ImageHeadline
+                            text="Dictionary Vault"
+                        />
                     </div>
+                    <UserAuthContainer />
+
+                    <h3>Conveniently Save and Load your dictionaries and easily transfer them between your devices.</h3>
 
                     <div className="col-md-12">
                         <ImageHeadline
@@ -305,7 +280,6 @@ DictionaryVaultContainer.propTypes = {
     authUser: object,
     dictionaryItems: array.isRequired,
     loadDictionaryListFunc: func.isRequired,
-    haveExtension: bool.isRequired,
 };
 
 DictionaryVaultContainer.defaultProps = {

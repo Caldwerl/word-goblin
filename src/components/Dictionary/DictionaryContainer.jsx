@@ -84,11 +84,33 @@ function DictionaryContainer() {
 
     return (
         <section className="dictionary-container container">
+            <div className="col-md-12">
+                <ImageHeadline
+                    text="List of Dictionaries to Apply"
+                />
+                <button
+                    id="save-settings"
+                    className="btn btn-primary"
+                    disabled={!haveExtension}
+                >
+                    Apply these Dictionaries to Extension
+                </button>
+
+                <div style={{ display: "none" }}>
+                    <input
+                        id="extensionCheckbox"
+                        className="form-control"
+                        type="checkbox"
+                        onChange={event => setHaveExtension(event.target.checked)}
+                        checked={haveExtension}
+                    />
+                </div>
+            </div>
+
             <DictionaryVaultContainer
                 authUser={authUser}
                 dictionaryItems={dictionaryItems}
                 loadDictionaryListFunc={loadDictionaryList}
-                haveExtension={haveExtension}
             />
 
             <div>
@@ -113,16 +135,6 @@ function DictionaryContainer() {
             </div>
 
             <NewInputComponent addDictionaryItem={addDictionaryItem} />
-
-            <div style={{ display: "none" }}>
-                <input
-                    id="extensionCheckbox"
-                    className="form-control"
-                    type="checkbox"
-                    onChange={event => setHaveExtension(event.target.checked)}
-                    checked={haveExtension}
-                />
-            </div>
         </section>
     );
 }

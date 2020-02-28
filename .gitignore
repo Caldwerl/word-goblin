@@ -9,6 +9,9 @@
 # production
 /public
 
+# firebase
+/.firebase
+
 # misc
 *.zip
 *.code-workspace

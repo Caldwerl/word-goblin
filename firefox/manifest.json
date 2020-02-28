@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
     "name": "Word Goblin",
-    "version": "1.4",
+    "version": "1.5",
     "description": "Swaps out words in your browser with a dictionary of your choice to assist in language learning.",
-    "homepage_url": "https://www.word-goblin.com",
+    "homepage_url": "https://word-goblin.web.app",
     "icons": {
         "48": "icons/word-goblin-48.png",
         "96": "icons/word-goblin-96.png"
@@ -14,7 +14,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://www.word-goblin.com/",
+                "https://word-goblin.web.app/",
                 "*://forums.somethingawful.com/showthread*",
                 "*://www.reddit.com/*/comments/*",
                 "*://news.ycombinator.com/item*",

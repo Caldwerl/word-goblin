@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/database";
 
 const config = {
-    apiKey: "AIzaSyAUvnhZpyVySdhooFAbkRqD1QO5qr7qkxE",
+    apiKey: "FIREBASE_KEY",
     authDomain: "word-goblin.firebaseapp.com",
     databaseURL: "https://word-goblin.firebaseio.com",
     projectId: "word-goblin",

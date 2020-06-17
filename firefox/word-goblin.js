@@ -10,6 +10,9 @@
     } else if (window.location.origin.includes("somethingawful")) {
         selector = "postbody";
         selectorType = "class";
+    } else if (window.location.origin.includes("old.reddit")) {
+        selector = "p";
+        selectorType = "tag";
     } else if (window.location.origin.includes("reddit")) {
         selector = "Comment";
         selectorType = "class";

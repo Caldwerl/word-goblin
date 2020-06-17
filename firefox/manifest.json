@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Word Goblin",
-    "version": "1.5",
+    "version": "1.6",
     "description": "Swaps out words in your browser with a dictionary of your choice to assist in language learning.",
     "homepage_url": "https://word-goblin.web.app",
     "icons": {
@@ -17,6 +17,7 @@
                 "https://word-goblin.web.app/",
                 "*://forums.somethingawful.com/showthread*",
                 "*://www.reddit.com/*/comments/*",
+                "*://old.reddit.com/*/comments/*",
                 "*://news.ycombinator.com/item*",
                 "*://www.nytimes.com/*",
                 "*://*.medium.com/*"

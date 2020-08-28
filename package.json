@@ -32,7 +32,7 @@
         ]
     },
     "dependencies": {
-        "dompurify": "^1.0.9",
+        "dompurify": "^2.0.3",
         "firebase": "^5.9.2",
         "prop-types": "^15.5.10",
         "react": "16.8.0",
